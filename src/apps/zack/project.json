@@ -1,0 +1,82 @@
+{
+  "name": "zack",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/zack/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "compiler": "babel",
+        "outputPath": "dist/apps/zack",
+        "index": "apps/zack/src/index.html",
+        "baseHref": "/",
+        "main": "apps/zack/src/main.tsx",
+        "tsConfig": "apps/zack/tsconfig.app.json",
+        "assets": ["apps/zack/src/favicon.ico", "apps/zack/src/assets"],
+        "styles": [],
+        "scripts": [],
+        "webpackConfig": "apps/zack/webpack.config.js"
+      },
+      "configurations": {
+        "development": {
+          "extractLicenses": false,
+          "optimization": false,
+          "sourceMap": true,
+          "vendorChunk": true
+        },
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/zack/src/environments/environment.ts",
+              "with": "apps/zack/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/webpack:dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "zack:build",
+        "hmr": true
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "zack:build:development"
+        },
+        "production": {
+          "buildTarget": "zack:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "zack:build"
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/zack/jest.config.ts"
+      }
+    }
+  },
+  "tags": []
+}

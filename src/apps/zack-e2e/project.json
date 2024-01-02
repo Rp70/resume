@@ -1,0 +1,30 @@
+{
+  "name": "zack-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/zack-e2e/src",
+  "targets": {
+    "e2e": {
+      "executor": "@nx/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/zack-e2e/cypress.config.ts",
+        "testingType": "e2e",
+        "devServerTarget": "zack:serve"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "zack:serve:production"
+        },
+        "ci": {
+          "devServerTarget": "zack:serve-static"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    }
+  },
+  "implicitDependencies": ["zack"],
+  "tags": []
+}
