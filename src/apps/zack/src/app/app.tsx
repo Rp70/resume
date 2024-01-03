@@ -1,4 +1,5 @@
 import { CssBaseline, ThemeProvider, createTheme } from '@mui/material';
+import Layout from './components/page-layout/layout';
 
 export function App() {
   // Use default theme`
@@ -8,7 +9,9 @@ export function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      This is resume template page
+      <Layout>
+        This is resume template page
+      </Layout>
     </ThemeProvider>
   );
 }
